@@ -145,7 +145,9 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 @keyframes wig1{45%{transform:translate(41%,-13%) rotate(16deg)}}
 @keyframes wig2{45%{transform:translate(-39%,19%) rotate(-15deg)}}
 .inc{margin:0 0 10px;text-align:center;font:700 14px/1 var(--body);opacity:.8}
+.deck-controls{align-self:center;display:grid;width:max-content;max-width:100%}
 .toggles{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px}
+.stack .back{transition:background-color .35s var(--ease)}
 .tog{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 15px 0 13px;border-radius:99px;border:1.5px solid var(--white);background:var(--white);color:var(--plum);font:700 15px/1 var(--body);transition:background-color .25s,color .25s,border-color .25s,transform .15s}
 .tog:active{transform:scale(.95)}
 .tog[aria-pressed=false]{background:transparent;color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.35)}
@@ -396,8 +398,10 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
       <button class="open-sm" id="open-btn">Open coaster <svg class="i"><use href="#i-arrow"/></svg></button>
       <div class="sh-spacer"></div>
       <p class="inc">Include decks</p>
-      <div class="toggles" id="toggles"></div>
-      <button class="btn btn-yellow" id="shuffle-btn"><svg class="i"><use href="#i-shuffle"/></svg>Shuffle</button>
+      <div class="deck-controls">
+        <div class="toggles" id="toggles"></div>
+        <button class="btn btn-yellow" id="shuffle-btn"><svg class="i"><use href="#i-shuffle"/></svg>Shuffle</button>
+      </div>
     </section>
 
     <!-- 3/4 Explore -->
@@ -706,11 +710,17 @@ function pickNext(){
   do { c = p[Math.floor(Math.random()*p.length)]; g++; } while (p.length > 1 && cur && c.id === cur.id && g < 30);
   return c;
 }
-function randomFrom(deck){ var list = Q.filter(function(c){ return c.deck === deck; }); return list[Math.floor(Math.random()*list.length)]; }
 function renderBacks(){
-  var others = DECK_KEYS.filter(function(k){ return k !== cur.deck; });
-  setCoaster($("#b1"), randomFrom(others[0]));
-  setCoaster($("#b2"), randomFrom(others[1]));
+  // Only show decks that are turned on; prefer other decks so the colors vary.
+  var on = DECK_KEYS.filter(function(k){ return S.decks[k]; });
+  var others = on.filter(function(k){ return k !== cur.deck; });
+  var decks = others.length >= 2 ? others.slice(0,2) : others.length === 1 ? [others[0], cur.deck] : [cur.deck, cur.deck];
+  var used = [cur.id];
+  ["#b1","#b2"].forEach(function(sel, i){
+    var list = Q.filter(function(c){ return c.deck === decks[i] && used.indexOf(c.id) < 0; });
+    var c = list[Math.floor(Math.random()*list.length)];
+    used.push(c.id); setCoaster($(sel), c);
+  });
 }
 function renderFront(){ setCoaster(front, cur); front.setAttribute("aria-label", "Open coaster: " + cur.q); renderBacks(); }
 function renderToggles(){
@@ -741,7 +751,7 @@ $("#toggles").addEventListener("click", function(e){
   var d = b.dataset.deck, onCount = DECK_KEYS.filter(function(k){ return S.decks[k]; }).length;
   if (S.decks[d] && onCount === 1) { restart(b, "shake"); buzz([10,40,10]); toast("Keep at least one deck on"); return; }
   S.decks[d] = !S.decks[d]; persist(); b.setAttribute("aria-pressed", S.decks[d] ? "true" : "false");
-  if (!S.decks[cur.deck]) doShuffle(1);
+  if (!S.decks[cur.deck]) doShuffle(1); else renderBacks();
 });
 function openFromShuffle(){ var ids = Q.filter(function(c){ return c.deck === cur.deck; }).map(function(c){ return c.id; }); openDetail(ids, ids.indexOf(cur.id), "shuffle"); }
 $("#open-btn").addEventListener("click", openFromShuffle);
