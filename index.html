@@ -29,6 +29,7 @@ body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);-w
 button{font-family:inherit;cursor:pointer;color:inherit}
 :focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none!important}
 svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
 .app{position:relative;height:100%;max-width:440px;margin:0 auto;background:var(--cream);display:flex;flex-direction:column;overflow:hidden;transition:background-color .4s var(--ease)}
@@ -68,6 +69,7 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 /* ---------- Views ---------- */
 .views{position:relative;flex:1;min-height:0}
 .view{position:absolute;inset:0;display:none;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.view > *{flex-shrink:0}
 .view.active{display:flex;animation:viewIn .4s var(--ease) both}
 #v-detail.active{animation-name:detailIn}
 @keyframes viewIn{from{opacity:0;transform:translateY(12px)}}
@@ -90,7 +92,7 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .link svg{width:18px;height:18px}
 
 /* ---------- Coaster ---------- */
-.coaster{position:relative;display:grid;place-items:center;aspect-ratio:1;max-width:100%;border-radius:50%;background:var(--c,var(--shared));color:var(--white);container-type:inline-size;border:0;padding:0;font:inherit}
+.coaster{position:relative;display:grid;place-items:center;aspect-ratio:1;max-width:100%;border-radius:50%;overflow:hidden;background:var(--c,var(--shared));color:var(--white);container-type:inline-size;border:0;padding:0;font:inherit}
 .ci{box-sizing:border-box;width:100%;padding:0 12cqw;display:flex;flex-direction:column;align-items:center;gap:8cqw;text-align:center}
 .ci svg{width:15cqw;height:auto;fill:currentColor}
 .cq{display:block;margin:0;font:400 6.2cqw/1.14 var(--display);text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
@@ -221,8 +223,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .tip-text{margin:0;font-size:17px;line-height:1.4}
 .note-view{margin:12px 0 0;padding-top:12px;border-top:1px solid var(--lav);font:italic 400 15px/1.4 var(--body);animation:pop .35s var(--ease)}
 .d-actions{display:flex;gap:12px;margin:18px 0 12px}
-#d-save.on{background:#FFEDEB;border-color:var(--coral)}
-#d-save.on svg{fill:var(--coral);stroke:var(--coral)}
+#d-save.on{background:var(--coral);border-color:var(--coral);color:var(--white)}
+#d-save.on svg{fill:var(--white);stroke:var(--white)}
 #d-save.pop svg{animation:heartPop .5s var(--spring)}
 @keyframes heartPop{40%{transform:scale(1.5)}70%{transform:scale(.9)}}
 #d-talked.done{background:var(--yellow);border-color:var(--yellow);color:var(--teal)}
@@ -268,7 +270,7 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .drow:active{transform:scale(.98)}
 .drow .coaster{width:56px;flex:none}
 .drow b{display:block;font-size:17px}
-.drow span{display:block;margin-top:2px;font-size:15px;line-height:1.3}
+.drow .dt span{display:block;margin-top:2px;font-size:15px;line-height:1.3}
 .drow .dt{flex:1;min-width:0}
 .drow > svg{width:20px;height:20px;color:var(--plum)}
 .h2{margin:28px 0 14px;font:700 20px/1.2 var(--body)}
@@ -322,7 +324,7 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .icon-pv{display:flex;align-items:center;gap:14px;margin:4px 0 16px;padding:12px 14px;border-radius:20px;background:var(--lav)}
 .icon-pv img{width:64px;height:64px;border-radius:15px;flex:none;box-shadow:0 4px 10px rgba(19,83,88,.2)}
 .icon-pv b{display:block;font-size:17px}
-.icon-pv span span{display:block;font-size:14px;opacity:.75}
+.icon-pv > span > span{display:block;font-size:14px;opacity:.75}
 .steps{margin:6px 0 16px;padding:0;list-style:none;display:grid;gap:12px}
 .steps li{display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.4}
 .steps b{display:block}
