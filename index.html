@@ -125,9 +125,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .sh-head .eyebrow{color:var(--yellow)}
 .sh-head h1{margin:8px 0 0;font:400 32px/1.05 var(--display)}
 .stack{--cs:min(90vw,351px,50vh);position:relative;flex:none;height:var(--cs);display:grid;place-items:center;margin:0}
-.open-sm{align-self:center;display:inline-flex;align-items:center;gap:6px;margin-top:20px;padding:8px 14px 8px 16px;border-radius:99px;border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.1);color:var(--white);font:700 14px/1.2 var(--body);transition:transform .15s var(--ease),background-color .2s}
-.open-sm:active{transform:scale(.95)}
-.open-sm svg{width:16px;height:16px}
+.open-sm{align-self:center;margin-top:20px;padding:8px 12px;border:0;background:none;color:var(--white);font:700 14px/1.2 var(--body);transition:opacity .15s}
+.open-sm:active{opacity:.6}
 .sh-spacer{flex:1;min-height:16px}
 .stack .coaster{position:absolute;width:var(--cs)}
 .stack .back{width:calc(var(--cs) * .8);opacity:.6;pointer-events:none}
@@ -144,7 +143,6 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .stack.wiggle .b2{animation:wig2 .6s var(--ease)}
 @keyframes wig1{45%{transform:translate(41%,-13%) rotate(16deg)}}
 @keyframes wig2{45%{transform:translate(-39%,19%) rotate(-15deg)}}
-.inc{margin:0 0 10px;text-align:center;font:700 14px/1 var(--body);opacity:.8}
 .deck-controls{align-self:center;display:grid;width:max-content;max-width:100%}
 .toggles{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px}
 .stack .back{transition:background-color .35s var(--ease)}
@@ -395,11 +393,10 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
         <div class="coaster back b2" id="b2" aria-hidden="true"></div>
         <button class="coaster front" id="front"></button>
       </div>
-      <button class="open-sm" id="open-btn">Open coaster <svg class="i"><use href="#i-arrow"/></svg></button>
+      <button class="open-sm" id="open-btn">Open coaster</button>
       <div class="sh-spacer"></div>
-      <p class="inc">Include decks</p>
       <div class="deck-controls">
-        <div class="toggles" id="toggles"></div>
+        <div class="toggles" id="toggles" role="group" aria-label="Include decks"></div>
         <button class="btn btn-yellow" id="shuffle-btn"><svg class="i"><use href="#i-shuffle"/></svg>Shuffle</button>
       </div>
     </section>
