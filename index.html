@@ -370,6 +370,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .frow[aria-pressed=true]{border-color:var(--plum);background:var(--white)}
 .frow[aria-pressed=true] .fcheck{background:var(--plum);border-color:var(--plum);color:var(--white)}
 .frow.shake{animation:shake .45s}
+.fall{position:relative;flex:none;width:56px;height:56px}
+.fall i{position:absolute;width:26px;height:26px;border-radius:50%;border:2px solid var(--white);background:var(--c)}
 .note-actions{display:flex;align-items:center;gap:8px;margin-top:14px}
 .note-actions .link{padding:12px;font-size:16px}
 .note-actions .btn{flex:1;width:auto;padding:0 16px}
@@ -469,8 +471,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
       <button class="open-sm" id="open-btn">Open coaster</button>
       <div class="sh-spacer"></div>
       <div class="sh-actions">
-        <button class="btn btn-ghost filter-btn" id="filter-btn"><svg class="i"><use href="#i-filter"/></svg>Filter<span class="fcount" id="filter-count" hidden></span></button>
         <button class="btn btn-yellow" id="shuffle-btn"><svg class="i"><use href="#i-shuffle"/></svg>Shuffle</button>
+        <button class="btn btn-ghost filter-btn" id="filter-btn"><svg class="i"><use href="#i-filter"/></svg>Filter<span class="fcount" id="filter-count" hidden></span></button>
       </div>
     </section>
 
@@ -817,7 +819,8 @@ function renderFilter(){
   var on = DECK_KEYS.filter(function(k){ return S.decks[k]; }).length;
   var fc = $("#filter-count"); fc.hidden = on === DECK_KEYS.length; fc.textContent = on;
   $("#filter-btn").setAttribute("aria-label", on === DECK_KEYS.length ? "Filter decks, all decks on" : "Filter decks, " + on + " of " + DECK_KEYS.length + " on");
-  $("#filter-rows").innerHTML = DECK_KEYS.map(function(d){ return '<button class="frow" data-deck="'+d+'" aria-pressed="'+(S.decks[d]?"true":"false")+'">'+coasterHTML(BY[d+"-1"])+'<span class="ft"><b>'+esc(DECKS[d].name)+'</b><span>'+esc(DECKS[d].desc)+'</span></span><span class="fcheck">'+icon("i-check")+'</span></button>'; }).join("");
+  var allOn = on === DECK_KEYS.length;
+  $("#filter-rows").innerHTML = '<button class="frow" data-all="1" aria-pressed="'+allOn+'"><span class="fall" aria-hidden="true"><i style="--c:#71BBB1;left:2px;top:14px"></i><i style="--c:#9CB1C4;left:18px;top:6px"></i><i style="--c:#A48DC2;left:30px;top:18px"></i></span><span class="ft"><b>All decks</b><span>Every coaster, all '+Q.length+' questions.</span></span><span class="fcheck">'+icon("i-check")+'</span></button>' + DECK_KEYS.map(function(d){ return '<button class="frow" data-deck="'+d+'" aria-pressed="'+(S.decks[d]?"true":"false")+'">'+coasterHTML(BY[d+"-1"])+'<span class="ft"><b>'+esc(DECKS[d].name)+'</b><span>'+esc(DECKS[d].desc)+'</span></span><span class="fcheck">'+icon("i-check")+'</span></button>'; }).join("");
 }
 function renderShuffle(){
   if (!cur || !S.decks[cur.deck]) cur = pickNext();
@@ -842,11 +845,14 @@ $("#shuffle-btn").addEventListener("click", function(){ doShuffle(Math.random() 
 $("#filter-btn").addEventListener("click", function(){ renderFilter(); openSheet($("#filter-sheet")); });
 $("#filter-rows").addEventListener("click", function(e){
   var b = e.target.closest(".frow"); if (!b) return;
+  if (b.dataset.all) {
+    if (DECK_KEYS.every(function(k){ return S.decks[k]; })) return;
+    DECK_KEYS.forEach(function(k){ S.decks[k] = true; }); persist(); buzz(5); renderFilter(); renderBacks(); return;
+  }
   var d = b.dataset.deck, onCount = DECK_KEYS.filter(function(k){ return S.decks[k]; }).length;
   if (S.decks[d] && onCount === 1) { restart(b, "shake"); buzz([10,40,10]); toast("Keep at least one deck on"); return; }
   S.decks[d] = !S.decks[d]; persist(); buzz(5);
-  b.setAttribute("aria-pressed", S.decks[d] ? "true" : "false");
-  var on = DECK_KEYS.filter(function(k){ return S.decks[k]; }).length, fc = $("#filter-count"); fc.hidden = on === DECK_KEYS.length; fc.textContent = on;
+  renderFilter();
   if (!S.decks[cur.deck]) doShuffle(1); else renderBacks();
 });
 function openFromShuffle(){ var ids = Q.filter(function(c){ return c.deck === cur.deck; }).map(function(c){ return c.id; }); openDetail(ids, ids.indexOf(cur.id), "shuffle"); }
