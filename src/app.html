@@ -371,7 +371,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .gate p{margin:0 0 32px;max-width:32em;font-size:22px;line-height:1.45;opacity:.88}
 .gate-actions{display:flex;flex-wrap:wrap;align-items:center;gap:28px}
 .gate-actions .btn{width:auto;padding:0 32px;font-size:20px;color:var(--plum)}
-.gate-art{position:relative;width:440px;height:480px}
+.gate-copy{position:relative;z-index:2}
+.gate-art{position:relative;z-index:1;width:440px;height:480px}
 .gate-art .coaster{position:absolute;left:50%;top:50%;width:300px}
 .gate-art .g1{transform:translate(calc(-50% - 118px),calc(-50% - 17px)) rotate(-12deg)}
 .gate-art .g2{transform:translate(calc(-50% + 85px),calc(-50% - 142px)) rotate(12deg)}
@@ -380,7 +381,7 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .qr-card svg{display:block;width:231px;height:231px}
 .qr-card b{font-size:18px}
 .qr-card span{font-size:14px;opacity:.7;user-select:all;-webkit-user-select:all}
-@media (max-width:1100px){.gate-inner{grid-template-columns:1fr;justify-items:center;gap:40px;text-align:center}.gate-actions{justify-content:center}.gate p{margin-left:auto;margin-right:auto}.gate-wm{margin:0 auto}}
+@media (max-width:1100px){.gate-inner{grid-template-columns:1fr;justify-items:center;gap:40px;text-align:center}.gate-actions{justify-content:center}.gate p{margin-left:auto;margin-right:auto}.gate-wm{margin:0 auto}.gate-art{margin-top:80px}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
 }
