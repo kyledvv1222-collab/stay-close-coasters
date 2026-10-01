@@ -334,6 +334,10 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .sheet textarea:focus{border-color:var(--plum)}
 .sheet-actions{display:grid;gap:6px;margin-top:14px}
 .sheet-actions .link{justify-content:center;padding:10px}
+#note-sheet{padding-top:24px}
+.note-actions{display:flex;align-items:center;gap:8px;margin-top:14px}
+.note-actions .link{padding:12px;font-size:16px}
+.note-actions .btn{flex:1;width:auto;padding:0 16px}
 .icon-pv{display:flex;align-items:center;gap:14px;margin:4px 0 16px;padding:12px 14px;border-radius:20px;background:var(--lav)}
 .icon-pv img{width:64px;height:64px;border-radius:15px;flex:none;box-shadow:0 4px 10px rgba(19,83,88,.2)}
 .icon-pv b{display:block;font-size:17px}
@@ -515,15 +519,14 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
   </aside>
 
   <div class="sheet" id="note-sheet" role="dialog" aria-modal="true" aria-labelledby="note-h">
-    <div class="grab"></div>
     <h3 id="note-h">Add a note</h3>
     <p class="sq" id="note-q"></p>
     <label class="sr" for="note-text">Your note</label>
     <textarea id="note-text" placeholder="What came up? Anything to revisit later?"></textarea>
-    <div class="sheet-actions">
-      <button class="btn btn-plum" id="note-save">Save note</button>
-      <button class="link" id="note-delete" hidden>Delete note</button>
+    <div class="note-actions">
       <button class="link" data-close-sheet>Cancel</button>
+      <button class="link" id="note-delete" hidden>Delete note</button>
+      <button class="btn btn-plum" id="note-save">Save note</button>
     </div>
   </div>
 
