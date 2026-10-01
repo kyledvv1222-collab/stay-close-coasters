@@ -41,7 +41,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .topbar .tb-detail{display:none}
 .app[data-view=detail] .topbar .tb-detail{display:grid}
 .app[data-view=detail] .logo-btn,.app[data-view=detail] .pill-btn{display:none}
-.app[data-view=detail] .menu-btn{border-color:transparent;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.app[data-view=detail] .topbar .tb-detail,.app[data-view=detail] .menu-btn{background:rgba(255,255,255,.12);border-color:transparent;box-shadow:none;color:var(--white)}
+.app[data-view=detail] .menu-btn span{background:var(--white)}
 .logo-btn{border:0;background:none;padding:0;display:flex;color:var(--teal)}
 .logo-btn svg{width:44px;height:40px;fill:currentColor}
 .tb-actions{display:flex;align-items:center;gap:8px}
@@ -212,16 +213,23 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .dots{display:flex;align-items:center;gap:5px}
 .dots i{display:block;width:7px;height:7px;border-radius:4px;background:var(--plum);opacity:.25;transition:width .35s var(--ease),opacity .35s}
 .dots i.on{width:20px;opacity:1}
-.tip{margin-top:18px;background:var(--white);border-radius:24px;padding:18px 20px}
+.tip{margin-top:18px;background:rgba(255,255,255,.12);color:var(--white);border-radius:24px;padding:18px 20px}
+.tip .tip-label{color:var(--white);opacity:.8}
 .tip-label{display:flex;align-items:center;gap:8px;margin:0 0 8px;font:700 13px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--plum)}
 .tip-text{margin:0;font-size:17px;line-height:1.4}
-.note-view{margin:12px 0 0;padding-top:12px;border-top:1px solid var(--lav);font:italic 400 15px/1.4 var(--body);animation:pop .35s var(--ease)}
-.d-actions{display:flex;gap:12px;margin:18px 0 12px}
-#d-save.on{background:var(--coral);border-color:var(--coral);color:var(--white)}
+.note-view{margin:12px 0 0;padding-top:12px;border-top:1px solid rgba(255,255,255,.25);font:italic 400 15px/1.4 var(--body);animation:pop .35s var(--ease)}
+.d-actions{display:flex;justify-content:center;gap:24px;margin:18px 0 6px}
+.icon-btn{width:60px;height:60px;border-radius:50%;border:0;padding:0;background:var(--yellow);color:var(--teal);display:grid;place-items:center;transition:transform .15s var(--ease),background-color .25s,color .25s}
+.icon-btn:active{transform:scale(.92)}
+.icon-btn svg{width:26px;height:26px}
+#d-notebtn.has-note{background:var(--white)}
+.d-pager .circle{color:var(--teal)}
+#d-save.on{background:var(--coral);color:var(--white)}
 #d-save.on svg{fill:var(--white);stroke:var(--white)}
 #d-save.pop svg{animation:heartPop .5s var(--spring)}
 @keyframes heartPop{40%{transform:scale(1.5)}70%{transform:scale(.9)}}
-#d-talked.done{background:var(--yellow);border-color:var(--yellow);color:var(--teal)}
+#d-talked.done{background:var(--white);color:var(--teal)}
+#d-talked.done svg{stroke-width:3}
 #d-talked.just svg{stroke-dasharray:26;animation:draw .45s .08s var(--ease) both}
 #d-talked.just{animation:thump .45s var(--spring)}
 @keyframes draw{from{stroke-dashoffset:26}to{stroke-dashoffset:0}}
@@ -422,10 +430,10 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
         <button class="circle sm" id="d-next" aria-label="Next coaster"><svg class="i"><use href="#i-right"/></svg></button>
       </div>
       <div class="d-actions">
-        <button class="btn btn-outline" id="d-save" aria-pressed="false"><svg class="i"><use href="#i-heart"/></svg><span>Save</span></button>
-        <button class="btn btn-outline" id="d-notebtn"><svg class="i"><use href="#i-chat"/></svg><span>Add a note</span></button>
+        <button class="icon-btn" id="d-save" aria-pressed="false" aria-label="Save" title="Save"><svg class="i"><use href="#i-heart"/></svg></button>
+        <button class="icon-btn" id="d-notebtn" aria-label="Add a note" title="Add a note"><svg class="i"><use href="#i-chat"/></svg></button>
+        <button class="icon-btn" id="d-talked" aria-pressed="false" aria-label="We talked about this" title="We talked about this"><svg class="i"><use href="#i-check"/></svg></button>
       </div>
-      <button class="btn btn-outline" id="d-talked" aria-pressed="false"><svg class="i"><use href="#i-check"/></svg><span>We talked about this</span></button>
       <div class="tip">
         <p class="tip-label"><span id="d-who">Ask each other</span></p>
         <p class="tip-text" id="d-tip"></p>
@@ -831,9 +839,9 @@ function renderDetailStates(){
   var id = ctx.ids[ctx.i];
   var saved = S.saved.indexOf(id) > -1, talked = S.talked.indexOf(id) > -1;
   var sb = $("#d-save"), tb = $("#d-talked");
-  sb.classList.toggle("on", saved); sb.setAttribute("aria-pressed", String(saved)); sb.querySelector("span").textContent = saved ? "Saved" : "Save";
-  tb.classList.toggle("done", talked); tb.setAttribute("aria-pressed", String(talked)); tb.querySelector("span").textContent = talked ? "Talked about" : "We talked about this";
-  $("#d-notebtn span").textContent = S.notes[id] ? "Edit note" : "Add a note";
+  sb.classList.toggle("on", saved); sb.setAttribute("aria-pressed", String(saved)); sb.setAttribute("aria-label", saved ? "Saved" : "Save"); sb.title = saved ? "Saved" : "Save";
+  tb.classList.toggle("done", talked); tb.setAttribute("aria-pressed", String(talked)); tb.setAttribute("aria-label", talked ? "Talked about" : "We talked about this"); tb.title = talked ? "Talked about" : "We talked about this";
+  var nb = $("#d-notebtn"), hasNote = !!S.notes[id]; nb.classList.toggle("has-note", hasNote); nb.setAttribute("aria-label", hasNote ? "Edit note" : "Add a note"); nb.title = hasNote ? "Edit note" : "Add a note";
 }
 function step(dir){
   var n = ctx.ids.length; if (n < 2 || stepping) return;
