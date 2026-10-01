@@ -199,8 +199,9 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .circle:active{transform:scale(.92)}
 .circle svg{width:22px;height:22px}
 .circle.sm{width:40px;height:40px}
-.d-stage{display:grid;place-items:center;padding:8px 0 14px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
-#d-coaster{width:min(80vw,310px,36vh);box-shadow:0 16px 32px rgba(77,38,64,.18);transition:transform .3s var(--ease)}
+.d-spacer{flex:1 1 auto;min-height:16px}
+.d-stage{display:grid;place-items:center;padding:0 0 16px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+#d-coaster{width:min(90vw,351px,44vh);box-shadow:0 16px 32px rgba(77,38,64,.18);transition:transform .3s var(--ease)}
 #d-coaster.out-l{animation:outL .18s ease-in forwards}
 #d-coaster.out-r{animation:outR .18s ease-in forwards}
 #d-coaster.in-l{animation:inL .38s var(--spring)}
@@ -209,19 +210,19 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 @keyframes outR{to{transform:translateX(45%) rotate(10deg);opacity:0}}
 @keyframes inL{from{transform:translateX(-45%) rotate(-10deg);opacity:0}}
 @keyframes inR{from{transform:translateX(45%) rotate(10deg);opacity:0}}
-.d-pager{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:18px}
+.d-pager{display:flex;align-items:center;justify-content:center;gap:16px}
 .dots{display:flex;align-items:center;gap:5px}
 .dots i{display:block;width:7px;height:7px;border-radius:4px;background:var(--plum);opacity:.25;transition:width .35s var(--ease),opacity .35s}
 .dots i.on{width:20px;opacity:1}
-.tip{margin-top:18px;background:rgba(255,255,255,.12);color:var(--white);border-radius:24px;padding:18px 20px}
+.tip{margin-top:24px;background:rgba(255,255,255,.12);color:var(--white);border-radius:24px;padding:18px 20px}
 .tip .tip-label{color:var(--white);opacity:.8}
 .tip-label{display:flex;align-items:center;gap:8px;margin:0 0 8px;font:700 13px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--plum)}
 .tip-text{margin:0;font-size:17px;line-height:1.4}
 .note-view{margin:12px 0 0;padding-top:12px;border-top:1px solid rgba(255,255,255,.25);font:italic 400 15px/1.4 var(--body);animation:pop .35s var(--ease)}
-.d-actions{display:flex;justify-content:center;gap:24px;margin:18px 0 6px}
-.icon-btn{width:60px;height:60px;border-radius:50%;border:0;padding:0;background:var(--yellow);color:var(--teal);display:grid;place-items:center;transition:transform .15s var(--ease),background-color .25s,color .25s}
+.d-actions{display:flex;justify-content:center;gap:24px}
+.icon-btn{width:72px;height:72px;border-radius:50%;border:0;padding:0;background:var(--yellow);color:var(--teal);display:grid;place-items:center;transition:transform .15s var(--ease),background-color .25s,color .25s}
 .icon-btn:active{transform:scale(.92)}
-.icon-btn svg{width:26px;height:26px}
+.icon-btn svg{width:30px;height:30px}
 #d-notebtn.has-note{background:var(--white)}
 .d-pager .circle{color:var(--teal)}
 #d-save.on{background:var(--coral);color:var(--white)}
@@ -423,12 +424,14 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
     <!-- 5 Detail -->
     <section class="view" id="v-detail" aria-label="Coaster">
       <p class="sr" id="d-count" aria-live="polite"></p>
+      <div class="d-spacer"></div>
       <div class="d-stage" id="d-stage"><div class="coaster" id="d-coaster"></div></div>
       <div class="d-pager">
         <button class="circle sm" id="d-prev" aria-label="Previous coaster"><svg class="i"><use href="#i-left"/></svg></button>
         <div class="dots" id="d-dots" aria-hidden="true"></div>
         <button class="circle sm" id="d-next" aria-label="Next coaster"><svg class="i"><use href="#i-right"/></svg></button>
       </div>
+      <div class="d-spacer"></div>
       <div class="d-actions">
         <button class="icon-btn" id="d-save" aria-pressed="false" aria-label="Save" title="Save"><svg class="i"><use href="#i-heart"/></svg></button>
         <button class="icon-btn" id="d-notebtn" aria-label="Add a note" title="Add a note"><svg class="i"><use href="#i-chat"/></svg></button>
