@@ -370,6 +370,29 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .cf{position:absolute;z-index:60;pointer-events:none;animation:cf .9s cubic-bezier(.12,.7,.3,1) forwards}
 @keyframes cf{0%{transform:translate(-50%,-50%) scale(.4);opacity:1}80%{opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) rotate(var(--r)) scale(1);opacity:0}}
 
+
+/* ---------- Desktop gate ---------- */
+.gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:96px 64px 64px;overflow:auto;background:var(--plum);color:var(--white)}
+.gate-logo{position:absolute;top:40px;left:56px;width:64px;color:var(--white)}
+.gate-logo svg{width:100%;height:auto;fill:currentColor;display:block}
+.gate-inner{display:grid;grid-template-columns:minmax(0,600px) 440px;gap:80px;align-items:center;width:100%;max-width:1120px}
+.gate-wm{width:300px;color:var(--white)}
+.gate-wm svg{width:100%;height:auto;display:block;fill:currentColor}
+.gate h1{margin:28px 0 20px;font:400 52px/1.08 var(--display);text-wrap:balance}
+.gate p{margin:0 0 32px;max-width:32em;font-size:22px;line-height:1.45;opacity:.88}
+.gate-actions{display:flex;flex-wrap:wrap;align-items:center;gap:28px}
+.gate-actions .btn{width:auto;padding:0 32px;font-size:20px;color:var(--plum)}
+.gate-skip{border:0;background:none;padding:6px 0;color:var(--white);opacity:.85;font:700 18px/1.2 var(--body);text-decoration:underline;text-underline-offset:4px}
+.gate-skip:hover{opacity:1}
+.gate-art{position:relative;width:440px;height:480px}
+.gate-art .coaster{position:absolute;width:300px;opacity:.9}
+.gate-art .g1{left:-30px;top:110px;transform:rotate(-12deg)}
+.gate-art .g2{right:-50px;top:30px;transform:rotate(12deg)}
+.qr-card{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:16px;padding:32px 32px 28px;border-radius:32px;background:var(--white);color:var(--teal);text-align:center;box-shadow:0 24px 48px rgba(0,0,0,.25)}
+.qr-card svg{display:block;width:231px;height:231px}
+.qr-card b{font-size:18px}
+.qr-card span{font-size:14px;opacity:.7;user-select:all;-webkit-user-select:all}
+@media (max-width:1100px){.gate-inner{grid-template-columns:1fr;justify-items:center;gap:40px;text-align:center}.gate-actions{justify-content:center}.gate p{margin-left:auto;margin-right:auto}.gate-wm{margin:0 auto}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
 }
@@ -563,6 +586,28 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<div class="gate" id="gate" hidden>
+  <a class="gate-logo" href="https://www.pflagnyc.org/stay-close/" aria-label="PFLAG NYC"><svg viewBox="0 0 43 39" aria-hidden="true"><use href="#logo"/></svg></a>
+  <div class="gate-inner">
+    <div class="gate-copy">
+      <div class="gate-wm"><svg viewBox="0 0 440 120" role="img" aria-label="Stay Close"><use href="#wordmark"/></svg></div>
+      <h1>Stay Close is made for your phone.</h1>
+      <p>Scan the code with your phone’s camera to open the conversation-starter coasters. Then add it to your Home Screen for quick access.</p>
+      <div class="gate-actions">
+        <a class="btn btn-yellow" href="https://www.pflagnyc.org/stay-close/">Back to PFLAG NYC <svg class="i"><use href="#i-arrow"/></svg></a>
+        <button class="gate-skip" id="gate-skip">Continue on desktop anyway</button>
+      </div>
+    </div>
+    <div class="gate-art" id="gate-art">
+      <div class="qr-card">
+        <svg viewBox="0 0 33 33" role="img" aria-label="QR code that opens the Stay Close app"><path fill="#135358" d="M0 0h7v1h-7zM9 0h2v1h-2zM15 0h1v1h-1zM18 0h2v1h-2zM21 0h1v1h-1zM23 0h1v1h-1zM26 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM10 1h2v1h-2zM15 1h1v1h-1zM17 1h2v1h-2zM20 1h1v1h-1zM23 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM9 2h1v1h-1zM14 2h1v1h-1zM16 2h4v1h-4zM23 2h1v1h-1zM26 2h1v1h-1zM28 2h3v1h-3zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM12 3h2v1h-2zM18 3h3v1h-3zM22 3h2v1h-2zM26 3h1v1h-1zM28 3h3v1h-3zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM11 4h1v1h-1zM13 4h1v1h-1zM16 4h3v1h-3zM22 4h2v1h-2zM26 4h1v1h-1zM28 4h3v1h-3zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM10 5h1v1h-1zM13 5h1v1h-1zM17 5h3v1h-3zM22 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h7v1h-7zM10 7h3v1h-3zM17 7h3v1h-3zM21 7h4v1h-4zM0 8h1v1h-1zM3 8h1v1h-1zM5 8h2v1h-2zM8 8h2v1h-2zM13 8h4v1h-4zM21 8h1v1h-1zM24 8h2v1h-2zM27 8h1v1h-1zM3 9h3v1h-3zM8 9h3v1h-3zM12 9h1v1h-1zM16 9h2v1h-2zM20 9h3v1h-3zM24 9h4v1h-4zM31 9h2v1h-2zM1 10h2v1h-2zM4 10h4v1h-4zM10 10h3v1h-3zM16 10h1v1h-1zM19 10h1v1h-1zM21 10h1v1h-1zM26 10h3v1h-3zM30 10h3v1h-3zM1 11h1v1h-1zM5 11h1v1h-1zM7 11h2v1h-2zM10 11h2v1h-2zM14 11h1v1h-1zM16 11h1v1h-1zM18 11h2v1h-2zM21 11h2v1h-2zM24 11h3v1h-3zM28 11h2v1h-2zM31 11h1v1h-1zM0 12h1v1h-1zM2 12h1v1h-1zM4 12h3v1h-3zM8 12h1v1h-1zM11 12h2v1h-2zM17 12h1v1h-1zM19 12h1v1h-1zM21 12h1v1h-1zM24 12h4v1h-4zM29 12h1v1h-1zM32 12h1v1h-1zM1 13h2v1h-2zM4 13h2v1h-2zM12 13h2v1h-2zM15 13h2v1h-2zM18 13h5v1h-5zM24 13h1v1h-1zM26 13h1v1h-1zM28 13h1v1h-1zM30 13h3v1h-3zM0 14h2v1h-2zM3 14h1v1h-1zM6 14h1v1h-1zM8 14h3v1h-3zM14 14h1v1h-1zM17 14h1v1h-1zM20 14h2v1h-2zM23 14h1v1h-1zM25 14h3v1h-3zM29 14h1v1h-1zM31 14h1v1h-1zM2 15h1v1h-1zM4 15h2v1h-2zM8 15h1v1h-1zM12 15h2v1h-2zM15 15h1v1h-1zM17 15h1v1h-1zM19 15h1v1h-1zM21 15h1v1h-1zM26 15h2v1h-2zM31 15h1v1h-1zM0 16h1v1h-1zM2 16h2v1h-2zM6 16h3v1h-3zM12 16h1v1h-1zM17 16h1v1h-1zM19 16h3v1h-3zM24 16h1v1h-1zM26 16h1v1h-1zM28 16h1v1h-1zM31 16h1v1h-1zM1 17h1v1h-1zM3 17h1v1h-1zM7 17h1v1h-1zM11 17h2v1h-2zM14 17h1v1h-1zM16 17h1v1h-1zM20 17h6v1h-6zM27 17h1v1h-1zM29 17h1v1h-1zM31 17h1v1h-1zM1 18h1v1h-1zM4 18h1v1h-1zM6 18h1v1h-1zM8 18h1v1h-1zM10 18h3v1h-3zM16 18h3v1h-3zM20 18h1v1h-1zM24 18h1v1h-1zM26 18h1v1h-1zM30 18h3v1h-3zM0 19h2v1h-2zM11 19h3v1h-3zM17 19h1v1h-1zM19 19h1v1h-1zM21 19h1v1h-1zM23 19h3v1h-3zM27 19h1v1h-1zM31 19h1v1h-1zM0 20h2v1h-2zM3 20h4v1h-4zM9 20h4v1h-4zM14 20h3v1h-3zM21 20h2v1h-2zM24 20h2v1h-2zM27 20h1v1h-1zM31 20h1v1h-1zM1 21h1v1h-1zM3 21h1v1h-1zM5 21h1v1h-1zM7 21h3v1h-3zM15 21h2v1h-2zM18 21h1v1h-1zM20 21h2v1h-2zM24 21h1v1h-1zM26 21h1v1h-1zM29 21h4v1h-4zM0 22h3v1h-3zM4 22h1v1h-1zM6 22h1v1h-1zM10 22h3v1h-3zM15 22h1v1h-1zM19 22h1v1h-1zM25 22h1v1h-1zM27 22h4v1h-4zM32 22h1v1h-1zM1 23h3v1h-3zM5 23h1v1h-1zM7 23h3v1h-3zM13 23h1v1h-1zM16 23h1v1h-1zM21 23h2v1h-2zM24 23h1v1h-1zM28 23h2v1h-2zM32 23h1v1h-1zM0 24h1v1h-1zM2 24h5v1h-5zM8 24h2v1h-2zM11 24h1v1h-1zM14 24h4v1h-4zM19 24h1v1h-1zM21 24h8v1h-8zM8 25h2v1h-2zM11 25h2v1h-2zM16 25h2v1h-2zM19 25h1v1h-1zM23 25h2v1h-2zM28 25h2v1h-2zM31 25h2v1h-2zM0 26h7v1h-7zM10 26h1v1h-1zM14 26h1v1h-1zM16 26h1v1h-1zM18 26h1v1h-1zM24 26h1v1h-1zM26 26h1v1h-1zM28 26h4v1h-4zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM10 27h2v1h-2zM17 27h2v1h-2zM21 27h2v1h-2zM24 27h1v1h-1zM28 27h1v1h-1zM31 27h1v1h-1zM0 28h1v1h-1zM2 28h3v1h-3zM6 28h1v1h-1zM10 28h1v1h-1zM12 28h1v1h-1zM14 28h1v1h-1zM17 28h6v1h-6zM24 28h6v1h-6zM31 28h1v1h-1zM0 29h1v1h-1zM2 29h3v1h-3zM6 29h1v1h-1zM8 29h5v1h-5zM14 29h2v1h-2zM21 29h1v1h-1zM23 29h1v1h-1zM26 29h1v1h-1zM28 29h3v1h-3zM0 30h1v1h-1zM2 30h3v1h-3zM6 30h1v1h-1zM13 30h2v1h-2zM18 30h1v1h-1zM21 30h2v1h-2zM25 30h1v1h-1zM28 30h2v1h-2zM32 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM9 31h1v1h-1zM11 31h1v1h-1zM13 31h1v1h-1zM17 31h3v1h-3zM21 31h4v1h-4zM26 31h1v1h-1zM29 31h1v1h-1zM0 32h7v1h-7zM8 32h3v1h-3zM14 32h3v1h-3zM20 32h6v1h-6zM28 32h2v1h-2zM31 32h1v1h-1z"/></svg>
+        <b>Scan with your phone’s camera</b>
+        <span>kyledvv1222-collab.github.io/stay-close-coasters</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -988,6 +1033,16 @@ $("#list").addEventListener("click", function(e){
 /* ---------- How it works ---------- */
 $("#how-decks").innerHTML = DECK_KEYS.map(function(d){ return '<button class="drow" data-deck="'+d+'">'+coasterHTML(BY[d+"-1"])+'<span class="dt"><b>'+esc(DECKS[d].name)+'</b><span>'+esc(DECKS[d].desc)+'</span></span>'+icon("i-right")+'</button>'; }).join("");
 $("#how-decks").addEventListener("click", function(e){ var b = e.target.closest("[data-deck]"); if (b) exploreDeck(b.dataset.deck); });
+
+/* ---------- Desktop gate ---------- */
+(function(){
+  var gate = $("#gate");
+  var desktop = window.matchMedia && matchMedia("(hover: hover) and (pointer: fine) and (min-width: 900px)").matches;
+  var skipped = false; try { skipped = sessionStorage.getItem("sc-desktop-ok") === "1"; } catch(e) {}
+  $("#gate-art").insertAdjacentHTML("afterbegin", coasterHTML(BY["lgbtq-1"], "g1") + coasterHTML(BY["loved-1"], "g2"));
+  if (desktop && !skipped) gate.hidden = false;
+  $("#gate-skip").addEventListener("click", function(){ gate.hidden = true; try { sessionStorage.setItem("sc-desktop-ok", "1"); } catch(e) {} });
+})();
 
 /* ---------- Start ---------- */
 updateSavedCount();
