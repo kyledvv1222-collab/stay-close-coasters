@@ -806,7 +806,7 @@ function renderFilter(){
   var fc = $("#filter-count"); fc.hidden = on === DECK_KEYS.length; fc.textContent = on;
   $("#filter-btn").setAttribute("aria-label", on === DECK_KEYS.length ? "Filter decks, all decks on" : "Filter decks, " + on + " of " + DECK_KEYS.length + " on");
   var allOn = on === DECK_KEYS.length;
-  $("#filter-rows").innerHTML = '<button class="frow" data-all="1" aria-pressed="'+allOn+'"><span class="fall" aria-hidden="true"><i style="--c:#9CB1C4;left:14px;top:11px"></i><i style="--c:#71BBB1;left:4px;top:23px"></i><i style="--c:#A48DC2;left:27px;top:23px"></i></span><span class="ft"><b>All decks</b><span>Every coaster, all '+Q.length+' questions.</span></span><span class="fcheck">'+icon("i-check")+'</span></button>' + DECK_KEYS.map(function(d){ return '<button class="frow" data-deck="'+d+'" aria-pressed="'+(S.decks[d]?"true":"false")+'">'+coasterHTML(BY[d+"-1"])+'<span class="ft"><b>'+esc(DECKS[d].name)+'</b><span>'+esc(DECKS[d].desc)+'</span></span><span class="fcheck">'+icon("i-check")+'</span></button>'; }).join("");
+  $("#filter-rows").innerHTML = '<button class="frow" data-all="1" aria-pressed="'+allOn+'"><span class="fall" aria-hidden="true"><i style="--c:#9CB1C4;left:14px;top:11px"></i><i style="--c:#71BBB1;left:4px;top:23px"></i><i style="--c:#A48DC2;left:27px;top:23px"></i></span><span class="ft"><b>All decks</b><span>Every coaster, all '+Q.length+' questions.</span></span><span class="fcheck">'+icon("i-check")+'</span></button>' + DECK_KEYS.map(function(d){ return '<button class="frow" data-deck="'+d+'" aria-pressed="'+(!allOn && S.decks[d]?"true":"false")+'">'+coasterHTML(BY[d+"-1"])+'<span class="ft"><b>'+esc(DECKS[d].name)+'</b><span>'+esc(DECKS[d].desc)+'</span></span><span class="fcheck">'+icon("i-check")+'</span></button>'; }).join("");
 }
 function renderShuffle(){
   if (!cur || !S.decks[cur.deck]) cur = pickNext();
@@ -835,9 +835,13 @@ $("#filter-rows").addEventListener("click", function(e){
     if (DECK_KEYS.every(function(k){ return S.decks[k]; })) return;
     DECK_KEYS.forEach(function(k){ S.decks[k] = true; }); persist(); buzz(5); renderFilter(); renderBacks(); return;
   }
-  var d = b.dataset.deck, onCount = DECK_KEYS.filter(function(k){ return S.decks[k]; }).length;
-  if (S.decks[d] && onCount === 1) { restart(b, "shake"); buzz([10,40,10]); toast("Keep at least one deck on"); return; }
-  S.decks[d] = !S.decks[d]; persist(); buzz(5);
+  var d = b.dataset.deck;
+  if (DECK_KEYS.every(function(k){ return S.decks[k]; })) { DECK_KEYS.forEach(function(k){ S.decks[k] = k === d; }); }
+  else {
+    S.decks[d] = !S.decks[d];
+    if (!DECK_KEYS.some(function(k){ return S.decks[k]; })) DECK_KEYS.forEach(function(k){ S.decks[k] = true; });
+  }
+  persist(); buzz(5);
   renderFilter();
   if (!S.decks[cur.deck]) doShuffle(1); else renderBacks();
 });
