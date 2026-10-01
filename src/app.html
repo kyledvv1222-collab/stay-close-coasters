@@ -121,8 +121,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .sh-head .eyebrow{color:var(--yellow)}
 .sh-head h1{margin:8px 0 0;font:400 32px/1.05 var(--display)}
 .stack{--cs:min(90vw,clamp(220px,calc(100vh - 360px),351px));position:relative;flex:none;height:var(--cs);display:grid;place-items:center;margin:0}
-.open-sm{align-self:center;margin-top:20px;padding:8px 12px;border:0;background:none;color:var(--white);font:700 14px/1.2 var(--body);transition:opacity .15s}
-.open-sm:active{opacity:.6}
+.open-sm{align-self:center;margin-top:20px;padding:10px 18px;border:0;border-radius:99px;background:rgba(255,255,255,.12);color:var(--white);font:700 14px/1.2 var(--body);transition:background-color .2s,transform .15s}
+.open-sm:active{transform:scale(.95);background:rgba(255,255,255,.2)}
 .sh-spacer{flex:1;min-height:clamp(12px,2.5vh,28px)}
 .stack .coaster{position:absolute;width:var(--cs)}
 .stack .back{width:calc(var(--cs) * .8);opacity:.6;pointer-events:none}
