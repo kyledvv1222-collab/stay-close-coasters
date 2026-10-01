@@ -445,7 +445,6 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
       <div class="tip">
         <p class="tip-label"><span id="d-who">Ask each other</span></p>
         <p class="tip-text" id="d-tip"></p>
-        <p class="note-view" id="d-note" hidden></p>
       </div>
     </section>
 
@@ -841,8 +840,6 @@ function renderDetail(){
   if (n > 1) { setCoaster(pl, BY[ctx.ids[(ctx.i - 1 + n) % n]]); setCoaster(pr, BY[ctx.ids[(ctx.i + 1) % n]]); }
   $("#d-who").textContent = k.who;
   $("#d-tip").textContent = k.tip;
-  var note = S.notes[c.id], nv = $("#d-note");
-  nv.hidden = !note; nv.textContent = note ? "Your note: " + note : "";
   renderDetailStates();
 }
 function renderDetailStates(){
