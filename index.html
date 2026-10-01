@@ -383,9 +383,10 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .gate-actions{display:flex;flex-wrap:wrap;align-items:center;gap:28px}
 .gate-actions .btn{width:auto;padding:0 32px;font-size:20px;color:var(--plum)}
 .gate-art{position:relative;width:440px;height:480px}
-.gate-art .coaster{position:absolute;width:300px;opacity:.9}
-.gate-art .g1{left:-30px;top:110px;transform:rotate(-12deg)}
-.gate-art .g2{right:-50px;top:30px;transform:rotate(12deg)}
+.gate-art .coaster{position:absolute;left:50%;top:50%;width:300px}
+.gate-art .g1{transform:translate(calc(-50% - 118px),calc(-50% - 17px)) rotate(-12deg)}
+.gate-art .g2{transform:translate(calc(-50% + 85px),calc(-50% - 142px)) rotate(12deg)}
+.gate-art .g3{transform:translate(calc(-50% + 113px),calc(-50% + 80px)) rotate(-15deg)}
 .qr-card{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:16px;padding:32px 32px 28px;border-radius:32px;background:var(--white);color:var(--teal);text-align:center;box-shadow:0 24px 48px rgba(0,0,0,.25)}
 .qr-card svg{display:block;width:231px;height:231px}
 .qr-card b{font-size:18px}
@@ -1035,7 +1036,7 @@ $("#how-decks").addEventListener("click", function(e){ var b = e.target.closest(
 (function(){
   var gate = $("#gate");
   var desktop = window.matchMedia && matchMedia("(hover: hover) and (pointer: fine) and (min-width: 900px)").matches;
-  $("#gate-art").insertAdjacentHTML("afterbegin", coasterHTML(BY["lgbtq-1"], "g1") + coasterHTML(BY["loved-1"], "g2"));
+  $("#gate-art").insertAdjacentHTML("afterbegin", coasterHTML(BY["lgbtq-1"], "g1") + coasterHTML(BY["loved-1"], "g2") + coasterHTML(BY["shared-2"], "g3"));
   if (desktop) gate.hidden = false;
 })();
 
