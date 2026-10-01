@@ -40,7 +40,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .app[data-view=welcome] .topbar{display:none}
 .topbar .tb-detail{display:none}
 .app[data-view=detail] .topbar .tb-detail{display:grid}
-.app[data-view=detail] .logo-btn,.app[data-view=detail] .pill-btn{display:none}
+.app[data-view=detail] .pill-btn{display:none}
+.app[data-view=detail] .logo-btn{color:var(--white)}
 .app[data-view=detail] .topbar .tb-detail,.app[data-view=detail] .menu-btn{background:rgba(255,255,255,.12);border-color:transparent;box-shadow:none;color:var(--white)}
 .app[data-view=detail] .menu-btn span{background:var(--white)}
 .logo-btn{border:0;background:none;padding:0;display:flex;color:var(--teal)}
@@ -383,7 +384,6 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 <div class="app" id="app" data-view="welcome">
   <header class="topbar">
     <button class="logo-btn" id="logo-btn" aria-label="PFLAG NYC, go to Shuffle"><svg viewBox="0 0 43 39" aria-hidden="true"><use href="#logo"/></svg></button>
-    <button class="circle tb-detail" id="d-back" aria-label="Back"><svg class="i"><use href="#i-left"/></svg></button>
     <div class="tb-actions">
       <button class="circle tb-detail" id="d-share" aria-label="Share this question"><svg class="i"><use href="#i-share"/></svg></button>
       <button class="pill-btn" id="saved-pill" aria-label="Saved coasters"><svg class="i"><use href="#i-heart"/></svg><span id="saved-count">0</span></button>
@@ -877,7 +877,6 @@ function step(dir){
 }
 $("#d-peek-l").addEventListener("click", function(){ step(-1); });
 $("#d-peek-r").addEventListener("click", function(){ step(1); });
-$("#d-back").addEventListener("click", function(){ go(ctx.from || "explore", {keepScroll:true}); });
 (function(){
   var stage = $("#d-stage"), track = $("#d-track"), start = null;
   stage.addEventListener("pointerdown", function(e){ if (stepping || ctx.ids.length < 2) return; start = {x:e.clientX}; track.classList.add("dragging"); });
