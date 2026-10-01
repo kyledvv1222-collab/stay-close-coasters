@@ -36,7 +36,10 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .app{position:relative;height:100%;max-width:440px;margin:0 auto;background:var(--cream);display:flex;flex-direction:column;overflow:hidden;transition:background-color .4s var(--ease)}
 .app[data-view=shuffle]{background:var(--teal)}
 .app[data-view=welcome]{background:var(--plum)}
-.app[data-view=detail]{background:var(--dbg,var(--lav))}
+.app[data-view=detail]{background:var(--teal)}
+#v-detail .dots i{background:var(--white);opacity:.35}
+#v-detail .dots i.on{opacity:1}
+.app[data-view=detail] .toast{background:var(--white);color:var(--teal)}
 @media (min-width:600px) and (min-height:720px){
   html,body{background:var(--page)}
   body{display:grid;place-items:center}
@@ -220,7 +223,7 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .dots{display:flex;align-items:center;gap:5px}
 .dots i{display:block;width:7px;height:7px;border-radius:4px;background:var(--plum);opacity:.25;transition:width .35s var(--ease),opacity .35s}
 .dots i.on{width:20px;opacity:1}
-.tip{background:var(--white);border-radius:24px;padding:18px 20px}
+.tip{margin-top:18px;background:var(--white);border-radius:24px;padding:18px 20px}
 .tip-label{display:flex;align-items:center;gap:8px;margin:0 0 8px;font:700 13px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--plum)}
 .tip-text{margin:0;font-size:17px;line-height:1.4}
 .note-view{margin:12px 0 0;padding-top:12px;border-top:1px solid var(--lav);font:italic 400 15px/1.4 var(--body);animation:pop .35s var(--ease)}
@@ -432,16 +435,16 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
         <div class="dots" id="d-dots" aria-hidden="true"></div>
         <button class="circle sm" id="d-next" aria-label="Next coaster"><svg class="i"><use href="#i-right"/></svg></button>
       </div>
-      <div class="tip">
-        <p class="tip-label"><span class="dot" id="d-dot"></span><span id="d-who">Ask each other</span></p>
-        <p class="tip-text" id="d-tip"></p>
-        <p class="note-view" id="d-note" hidden></p>
-      </div>
       <div class="d-actions">
         <button class="btn btn-outline" id="d-save" aria-pressed="false"><svg class="i"><use href="#i-heart"/></svg><span>Save</span></button>
         <button class="btn btn-outline" id="d-notebtn"><svg class="i"><use href="#i-chat"/></svg><span>Add a note</span></button>
       </div>
       <button class="btn btn-outline" id="d-talked" aria-pressed="false"><svg class="i"><use href="#i-check"/></svg><span>We talked about this</span></button>
+      <div class="tip">
+        <p class="tip-label"><span id="d-who">Ask each other</span></p>
+        <p class="tip-text" id="d-tip"></p>
+        <p class="note-view" id="d-note" hidden></p>
+      </div>
     </section>
 
     <!-- 6 Saved -->
@@ -613,7 +616,7 @@ function burst(el, colors, n, spread){
 }
 
 /* ---------- Router ---------- */
-var VIEW_BG = {welcome:"#824760", shuffle:"#135358", explore:"#FFF5F4", saved:"#FFF5F4", howto:"#FFF5F4"};
+var VIEW_BG = {welcome:"#824760", shuffle:"#135358", detail:"#135358", explore:"#FFF5F4", saved:"#FFF5F4", howto:"#FFF5F4"};
 function setChrome(color){
   document.documentElement.style.setProperty("--appbg", color);
   var metas = document.querySelectorAll('meta[name="theme-color"]');
@@ -627,7 +630,7 @@ function go(v, opt){
   if (v === "detail" && !ctx) v = "shuffle";
   closeMenu(true); closeSheet();
   view = v; app.dataset.view = v;
-  if (v !== "detail") setChrome(VIEW_BG[v]);
+  setChrome(VIEW_BG[v]);
   document.querySelectorAll(".view").forEach(function(s){ s.classList.toggle("active", s.id === "v-" + v); });
   var sec = $("#v-" + v);
   if (!opt.keepScroll) sec.scrollTop = 0;
@@ -828,12 +831,10 @@ var dc = $("#d-coaster"), stepping = false;
 function openDetail(ids, i, from){ ctx = {ids:ids, i:Math.max(0,i), from:from}; go("detail"); }
 function renderDetail(){
   var c = BY[ctx.ids[ctx.i]], k = DECKS[c.deck];
-  app.style.setProperty("--dbg", tint(k.color, .32)); setChrome(tint(k.color, .32));
   setCoaster(dc, c);
   $("#d-count").textContent = k.name + " coaster, " + (ctx.i + 1) + " of " + ctx.ids.length;
   $("#d-dots").innerHTML = ctx.ids.length > 1 ? ctx.ids.map(function(id,j){ return '<i'+(j === ctx.i ? ' class="on"' : "")+'></i>'; }).join("") : "";
   $("#d-prev").hidden = $("#d-next").hidden = ctx.ids.length < 2;
-  $("#d-dot").style.setProperty("--c", k.color);
   $("#d-who").textContent = k.who;
   $("#d-tip").textContent = k.tip;
   var note = S.notes[c.id], nv = $("#d-note");
