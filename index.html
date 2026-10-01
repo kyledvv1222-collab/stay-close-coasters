@@ -150,9 +150,9 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .deck-controls{align-self:center;display:grid;width:max-content;max-width:100%}
 .toggles{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px}
 .stack .back{transition:background-color .35s var(--ease)}
-.tog{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 15px 0 13px;border-radius:99px;border:1.5px solid var(--white);background:var(--white);color:var(--plum);font:700 15px/1 var(--body);transition:background-color .25s,color .25s,border-color .25s,transform .15s}
+.tog{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 12px 0 14px;border-radius:99px;border:0;background:var(--white);color:var(--plum);font:700 15px/1 var(--body);transition:background-color .25s,color .25s,transform .15s}
 .tog:active{transform:scale(.95)}
-.tog[aria-pressed=false]{background:transparent;color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.35)}
+.tog[aria-pressed=true]{background:var(--plum);color:var(--white)}
 .tog.shake{animation:shake .45s}
 @keyframes shake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
