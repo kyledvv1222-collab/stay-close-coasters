@@ -194,14 +194,14 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .empty .btn{width:auto;min-height:46px;font-size:16px;padding:0 22px}
 
 /* ---------- Detail ---------- */
-#v-detail{padding:0 16px 24px}
+#v-detail{padding:0 16px 24px;overflow-x:hidden}
 .circle{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:var(--white);color:var(--plum);display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:transform .15s var(--ease)}
 .circle:active{transform:scale(.92)}
 .circle svg{width:22px;height:22px}
 .circle.sm{width:40px;height:40px}
 .d-spacer{flex:1 1 auto;min-height:16px}
-.d-stage{display:grid;place-items:center;padding:0 0 16px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
-#d-coaster{width:min(90vw,351px,44vh);box-shadow:0 16px 32px rgba(77,38,64,.18);transition:transform .3s var(--ease)}
+.d-stage{--dc:min(90vw,351px,44vh);position:relative;display:grid;place-items:center;padding:0 0 16px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+#d-coaster{position:relative;z-index:1;width:var(--dc);box-shadow:0 16px 32px rgba(77,38,64,.18);transition:transform .3s var(--ease)}
 #d-coaster.out-l{animation:outL .18s ease-in forwards}
 #d-coaster.out-r{animation:outR .18s ease-in forwards}
 #d-coaster.in-l{animation:inL .38s var(--spring)}
@@ -224,7 +224,10 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .icon-btn:active{transform:scale(.92)}
 .icon-btn svg{width:30px;height:30px}
 #d-notebtn.has-note{background:var(--white)}
-.d-pager .circle{color:var(--teal)}
+.peek{position:absolute;top:calc((100% - 16px) / 2);width:calc(var(--dc) * .85);opacity:.7;transform:translateY(-50%);transition:opacity .2s}
+.peek:active{opacity:.9}
+.peek-l{right:calc(100% + 2px)}
+.peek-r{left:calc(100% + 2px)}
 #d-save.on{background:var(--coral);color:var(--white)}
 #d-save.on svg{fill:var(--white);stroke:var(--white)}
 #d-save.pop svg{animation:heartPop .5s var(--spring)}
@@ -425,12 +428,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
     <section class="view" id="v-detail" aria-label="Coaster">
       <p class="sr" id="d-count" aria-live="polite"></p>
       <div class="d-spacer"></div>
-      <div class="d-stage" id="d-stage"><div class="coaster" id="d-coaster"></div></div>
-      <div class="d-pager">
-        <button class="circle sm" id="d-prev" aria-label="Previous coaster"><svg class="i"><use href="#i-left"/></svg></button>
-        <div class="dots" id="d-dots" aria-hidden="true"></div>
-        <button class="circle sm" id="d-next" aria-label="Next coaster"><svg class="i"><use href="#i-right"/></svg></button>
-      </div>
+      <div class="d-stage" id="d-stage"><button class="coaster peek peek-l" id="d-peek-l" aria-label="Previous coaster"></button><div class="coaster" id="d-coaster"></div><button class="coaster peek peek-r" id="d-peek-r" aria-label="Next coaster"></button></div>
+      <div class="d-pager"><div class="dots" id="d-dots" aria-hidden="true"></div></div>
       <div class="d-spacer"></div>
       <div class="d-actions">
         <button class="icon-btn" id="d-save" aria-pressed="false" aria-label="Save" title="Save"><svg class="i"><use href="#i-heart"/></svg></button>
@@ -831,7 +830,9 @@ function renderDetail(){
   setCoaster(dc, c);
   $("#d-count").textContent = k.name + " coaster, " + (ctx.i + 1) + " of " + ctx.ids.length;
   $("#d-dots").innerHTML = ctx.ids.length > 1 ? ctx.ids.map(function(id,j){ return '<i'+(j === ctx.i ? ' class="on"' : "")+'></i>'; }).join("") : "";
-  $("#d-prev").hidden = $("#d-next").hidden = ctx.ids.length < 2;
+  var n = ctx.ids.length, pl = $("#d-peek-l"), pr = $("#d-peek-r");
+  pl.hidden = pr.hidden = n < 2;
+  if (n > 1) { setCoaster(pl, BY[ctx.ids[(ctx.i - 1 + n) % n]]); setCoaster(pr, BY[ctx.ids[(ctx.i + 1) % n]]); }
   $("#d-who").textContent = k.who;
   $("#d-tip").textContent = k.tip;
   var note = S.notes[c.id], nv = $("#d-note");
@@ -859,8 +860,8 @@ function step(dir){
     setTimeout(function(){ dc.classList.remove(inC); stepping = false; }, 390);
   }, 180);
 }
-$("#d-prev").addEventListener("click", function(){ step(-1); });
-$("#d-next").addEventListener("click", function(){ step(1); });
+$("#d-peek-l").addEventListener("click", function(){ step(-1); });
+$("#d-peek-r").addEventListener("click", function(){ step(1); });
 $("#d-back").addEventListener("click", function(){ go(ctx.from || "explore", {keepScroll:true}); });
 (function(){
   var stage = $("#d-stage"), start = null;
