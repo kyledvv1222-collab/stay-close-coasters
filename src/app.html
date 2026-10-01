@@ -64,7 +64,7 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 
 /* ---------- Views ---------- */
 .views{position:relative;flex:1;min-height:0}
-.view{position:absolute;inset:0;display:none;flex-direction:column;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.view{position:absolute;inset:0;display:none;flex-direction:column;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .view > *{flex-shrink:0}
 .view.active{display:flex;animation:viewIn .4s var(--ease) both}
 #v-detail.active{animation-name:detailIn}
@@ -159,7 +159,7 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .search input::-webkit-search-cancel-button{display:none}
 .search .clear{width:40px;height:40px;border-radius:50%;border:0;background:var(--lav);color:var(--plum);display:grid;place-items:center;animation:pop .3s var(--spring)}
 .search .clear svg{width:18px;height:18px}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:14px 16px 4px;scrollbar-width:none}
+.chips{position:relative;display:flex;gap:8px;overflow-x:auto;padding:14px 16px 4px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:none;display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 12px 0 14px;border-radius:99px;border:1.5px solid rgba(130,71,96,.25);background:var(--white);color:var(--plum);font:700 15px/1 var(--body);transition:background-color .25s,color .25s,border-color .25s,transform .15s}
 .chip:active{transform:scale(.95)}
@@ -826,7 +826,7 @@ $("#chips").addEventListener("click", function(e){
   var b = e.target.closest(".chip"); if (!b || b.dataset.deck === EX.deck) return;
   EX.deck = b.dataset.deck; buzz(5);
   renderChips(); renderBanner(); renderGrid();
-  try { b.scrollIntoView({inline:"center", block:"nearest", behavior: RM ? "auto" : "smooth"}); } catch(err) {}
+  centerChip(b, !RM);
 });
 $("#grid").addEventListener("click", function(e){
   var b = e.target.closest(".gitem"); if (!b) return;
@@ -834,7 +834,8 @@ $("#grid").addEventListener("click", function(e){
   openDetail(ids, ids.indexOf(b.dataset.id), "explore");
 });
 $("#ex-shuffle").addEventListener("click", function(){ if (EX.deck !== "all") { DECK_KEYS.forEach(function(k){ S.decks[k] = k === EX.deck; }); persist(); cur = null; } go("shuffle"); });
-function exploreDeck(d){ EX.deck = d; setSearch(""); go("explore"); var b = $('#chips [data-deck="'+d+'"]'); if (b) try { b.scrollIntoView({inline:"center", block:"nearest"}); } catch(err) {} }
+function exploreDeck(d){ EX.deck = d; setSearch(""); go("explore"); var b = $('#chips [data-deck="'+d+'"]'); if (b) centerChip(b, false); }
+function centerChip(b, smooth){ var row = $("#chips"); var left = b.offsetLeft - (row.clientWidth - b.offsetWidth) / 2; try { row.scrollTo({left: Math.max(0, left), behavior: smooth ? "smooth" : "auto"}); } catch(err) { row.scrollLeft = Math.max(0, left); } }
 
 /* ---------- Detail ---------- */
 var dc = $("#d-coaster"), stepping = false;
