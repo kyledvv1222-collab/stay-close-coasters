@@ -150,9 +150,9 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .deck-controls{align-self:center;display:grid;width:max-content;max-width:100%}
 .toggles{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:18px}
 .stack .back{transition:background-color .35s var(--ease)}
-.tog{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 15px 0 13px;border-radius:99px;border:1.5px solid var(--white);background:var(--white);color:var(--plum);font:700 15px/1 var(--body);transition:background-color .25s,color .25s,border-color .25s,transform .15s}
+.tog{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px 0 13px;border-radius:99px;border:1.5px solid var(--white);background:transparent;color:var(--white);font:700 14px/1 var(--body);text-transform:uppercase;letter-spacing:.06em;transition:opacity .25s,transform .15s}
 .tog:active{transform:scale(.95)}
-.tog[aria-pressed=false]{background:transparent;color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.35)}
+.tog[aria-pressed=false]{opacity:.55}
 .tog.shake{animation:shake .45s}
 @keyframes shake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
@@ -236,11 +236,11 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .tip-text{margin:0;font-size:17px;line-height:1.4}
 .note-view{margin:12px 0 0;padding-top:12px;border-top:1px solid rgba(255,255,255,.25);font:italic 400 15px/1.4 var(--body);animation:pop .35s var(--ease)}
 .d-actions{display:flex;justify-content:center;gap:24px}
-.icon-btn{width:72px;height:72px;border-radius:50%;border:0;padding:0;background:var(--yellow);color:var(--teal);display:grid;place-items:center;transition:transform .15s var(--ease),background-color .25s,color .25s}
+.icon-btn{width:72px;height:72px;border-radius:50%;border:2px solid var(--white);padding:0;background:transparent;color:var(--white);display:grid;place-items:center;transition:transform .15s var(--ease),background-color .25s,border-color .25s,color .25s}
 .icon-btn:active{transform:scale(.92)}
 .icon-btn svg{width:30px;height:30px}
 #d-talked svg{width:34px;height:34px;stroke-width:2.5}
-#d-notebtn.has-note{background:var(--white)}
+#d-notebtn.has-note{background:var(--white);border-color:var(--white);color:var(--teal)}
 .d-track{position:relative;display:grid;place-items:center;transition:transform .32s var(--ease)}
 .d-track.dragging{transition:none}
 .d-pager{margin-bottom:clamp(20px,6vh,52px)}
@@ -252,11 +252,11 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .peek:active{opacity:.9}
 .peek-l{right:calc(100% + 2px)}
 .peek-r{left:calc(100% + 2px)}
-#d-save.on{background:var(--coral);color:var(--white)}
+#d-save.on{background:var(--coral);border-color:var(--coral);color:var(--white)}
 #d-save.on svg{fill:var(--white);stroke:var(--white)}
 #d-save.pop svg{animation:heartPop .5s var(--spring)}
 @keyframes heartPop{40%{transform:scale(1.5)}70%{transform:scale(.9)}}
-#d-talked.done{background:var(--white);color:var(--teal)}
+#d-talked.done{background:var(--yellow);border-color:var(--yellow);color:var(--teal)}
 #d-talked.just svg{stroke-dasharray:26;animation:draw .45s .08s var(--ease) both}
 #d-talked.just{animation:thump .45s var(--spring)}
 @keyframes draw{from{stroke-dashoffset:26}to{stroke-dashoffset:0}}
@@ -913,12 +913,13 @@ $("#d-talked").addEventListener("click", function(){
 });
 $("#d-share").addEventListener("click", function(){
   var c = BY[ctx.ids[ctx.i]];
+  var url = "https://kyledvv1222-collab.github.io/stay-close-coasters/#welcome";
   var text = c.q + "\n\nA Stay Close conversation starter from PFLAG NYC.";
   function copy(){
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function(){ toast("Question copied", "i-check"); }, function(){ toast("Copying isn’t available here"); });
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text + "\n" + url).then(function(){ toast("Question copied", "i-check"); }, function(){ toast("Copying isn’t available here"); });
     else toast("Copying isn’t available here");
   }
-  if (navigator.share) navigator.share({text:text}).catch(function(err){ if (!err || err.name !== "AbortError") copy(); });
+  if (navigator.share) navigator.share({title:"Stay Close", text:text, url:url}).catch(function(err){ if (!err || err.name !== "AbortError") copy(); });
   else copy();
 });
 $("#d-notebtn").addEventListener("click", function(){
