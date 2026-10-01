@@ -309,7 +309,7 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .tips{list-style:none;margin:0;padding:0;display:grid;gap:14px}
 .tips li{display:flex;align-items:center;gap:12px;font-size:16px;line-height:1.35}
 .num{flex:none;width:32px;height:32px;border-radius:50%;background:var(--yellow);color:var(--plum);display:grid;place-items:center;font-weight:700}
-.support{display:grid;gap:10px;margin:28px 0 12px;padding:20px;border-radius:24px;background:var(--teal);color:var(--white)}
+.support{display:grid;gap:10px;margin:28px 0 32px;padding:20px;border-radius:24px;background:var(--teal);color:var(--white)}
 .support h3{margin:0;font:400 20px/1.15 var(--display)}
 .support p{margin:0;font-size:16px;line-height:1.4;opacity:.88}
 .support .btn{justify-self:start;width:auto;min-height:44px;margin-top:4px;padding:0 18px;font-size:16px}
@@ -535,7 +535,6 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
           <p>PFLAG NYC support groups meet every month, in person and online.</p>
           <a class="btn btn-yellow" href="https://www.pflagnyc.org" target="_blank" rel="noopener">Find a support group <svg class="i"><use href="#i-arrow"/></svg></a>
         </div>
-        <button class="link again" id="show-welcome">Show the welcome screen</button>
       </div>
     </section>
   </main>
@@ -768,7 +767,6 @@ function renderWelcome(){
   $("#fan").innerHTML = coasterHTML(BY["lgbtq-1"],"f1") + coasterHTML(BY["loved-1"],"f3") + coasterHTML(BY["shared-1"],"f2");
 }
 $("#w-start").addEventListener("click", function(){ S.seen = true; persist(); go("shuffle"); });
-$("#show-welcome").addEventListener("click", function(){ go("welcome"); });
 
 /* ---------- Shuffle ---------- */
 var front = $("#front"), stack = $("#stack"), cur = null, animating = false;
