@@ -166,7 +166,7 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .chip .n{padding:3px 7px;border-radius:99px;background:var(--lav);font-size:13px;transition:background-color .25s}
 .chip[aria-selected=true]{background:var(--plum);border-color:var(--plum);color:var(--white)}
 .chip[aria-selected=true] .n{background:rgba(255,255,255,.2)}
-.banner{display:flex;align-items:flex-start;gap:12px;margin-top:14px;padding:16px 10px 16px 16px;border-radius:20px;background:var(--tint);animation:pop .4s var(--spring);transition:opacity .25s,transform .25s}
+.banner{display:flex;align-items:flex-start;gap:12px;margin-top:14px;padding:16px;border-radius:20px;background:var(--tint);animation:pop .4s var(--spring);transition:opacity .25s,transform .25s}
 .banner.closing{opacity:0;transform:scale(.96)}
 .banner .bi{width:36px;height:36px;border-radius:50%;background:var(--c);color:var(--white);display:grid;place-items:center;flex:none}
 .banner .bi svg{width:18px;height:18px}
@@ -796,13 +796,9 @@ function renderChips(){
 }
 function renderBanner(){
   var slot = $("#banner-slot"), d = EX.deck;
-  if (d === "all" || S.dismissed[d]) { slot.innerHTML = ""; return; }
+  if (d === "all") { slot.innerHTML = ""; return; }
   var k = DECKS[d];
-  slot.innerHTML = '<div class="banner" style="--c:'+k.color+';--tint:'+tint(k.color,.2)+'"><span class="bi">'+icon("i-chat")+'</span><div class="bt"><b>'+esc(k.who)+'</b><p>'+esc(k.banner)+'</p></div><button class="x" aria-label="Dismiss">'+icon("i-x")+'</button></div>';
-  slot.querySelector(".x").addEventListener("click", function(){
-    S.dismissed[d] = true; persist();
-    var b = slot.querySelector(".banner"); b.classList.add("closing"); wait(250, function(){ slot.innerHTML = ""; });
-  });
+  slot.innerHTML = '<div class="banner" style="--c:'+k.color+';--tint:'+tint(k.color,.2)+'"><span class="bi">'+icon("i-chat")+'</span><div class="bt"><b>'+esc(k.who)+'</b><p>'+esc(k.banner)+'</p></div></div>';
 }
 function renderGrid(){
   var list = filtered(), grid = $("#grid"), empty = $("#ex-empty");
