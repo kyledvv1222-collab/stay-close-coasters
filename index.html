@@ -253,8 +253,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .d-track.go-next .peek-r,.d-track.go-prev .peek-l{transform:translateY(-50%) scale(1.1765);opacity:1;z-index:2}
 .d-track.go-next #d-coaster,.d-track.go-prev #d-coaster{transform:scale(.85);opacity:.7}
 .peek:active{opacity:.9}
-.peek-l{right:calc(100% + 2px)}
-.peek-r{left:calc(100% + 2px)}
+.peek-l{right:calc(100% - 10px)}
+.peek-r{left:calc(100% - 10px)}
 #d-save.on{background:var(--coral);border-color:var(--coral);color:var(--white)}
 #d-save.on svg{fill:var(--white);stroke:var(--white)}
 #d-save.pop svg{animation:heartPop .5s var(--spring)}
@@ -873,7 +873,7 @@ function renderDetailStates(){
   tb.classList.toggle("done", talked); tb.setAttribute("aria-pressed", String(talked)); tb.setAttribute("aria-label", talked ? "Talked about" : "We talked about this"); tb.title = talked ? "Talked about" : "We talked about this";
   var nb = $("#d-notebtn"), hasNote = !!S.notes[id]; nb.classList.toggle("has-note", hasNote); nb.setAttribute("aria-label", hasNote ? "Edit note" : "Add a note"); nb.title = hasNote ? "Edit note" : "Add a note";
 }
-function slotDistance(){ var t = $("#d-track"), pk = $("#d-peek-r"); return t.offsetWidth/2 + 2 + pk.offsetWidth/2; }
+function slotDistance(){ var t = $("#d-track"), pk = $("#d-peek-r"); return t.offsetWidth/2 - 10 + pk.offsetWidth/2; }
 function step(dir){
   var n = ctx.ids.length; if (n < 2 || stepping) return;
   buzz(5);
