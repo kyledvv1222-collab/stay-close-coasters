@@ -128,10 +128,10 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .sh-head{text-align:center;padding-top:6px}
 .sh-head .eyebrow{color:var(--yellow)}
 .sh-head h1{margin:8px 0 0;font:400 32px/1.05 var(--display)}
-.stack{--cs:min(90vw,351px,50vh);position:relative;flex:none;height:var(--cs);display:grid;place-items:center;margin:0}
+.stack{--cs:min(90vw,clamp(220px,calc(100vh - 420px),351px));position:relative;flex:none;height:var(--cs);display:grid;place-items:center;margin:0}
 .open-sm{align-self:center;margin-top:20px;padding:8px 12px;border:0;background:none;color:var(--white);font:700 14px/1.2 var(--body);transition:opacity .15s}
 .open-sm:active{opacity:.6}
-.sh-spacer{flex:1;min-height:16px}
+.sh-spacer{flex:1;min-height:clamp(16px,4vh,40px)}
 .stack .coaster{position:absolute;width:var(--cs)}
 .stack .back{width:calc(var(--cs) * .8);opacity:.6;pointer-events:none}
 .b1{transform:translate(36%,-10%) rotate(10deg)}
@@ -210,8 +210,13 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .circle:active{transform:scale(.92)}
 .circle svg{width:22px;height:22px}
 .circle.sm{width:40px;height:40px}
-.d-spacer{flex:1 1 auto;min-height:16px}
-.d-stage{--dc:min(90vw,351px,44vh);position:relative;margin-top:12px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.d-spacer{flex:1 1 auto;min-height:clamp(16px,4vh,40px)}
+/* dvh tracks the visible area as browser bars show and hide */
+@supports (height:100dvh){
+  .stack{--cs:min(90vw,clamp(220px,calc(100dvh - 420px),351px))}
+  .d-stage{--dc:min(90vw,clamp(220px,calc(100dvh - 390px),351px))}
+}
+.d-stage{--dc:min(90vw,clamp(220px,calc(100vh - 390px),351px));position:relative;margin-top:clamp(8px,2vh,20px);touch-action:pan-y;user-select:none;-webkit-user-select:none}
 #d-coaster{position:relative;z-index:1;width:var(--dc);box-shadow:0 16px 32px rgba(77,38,64,.18);transition:transform .3s var(--ease)}
 #d-coaster.out-l{animation:outL .18s ease-in forwards}
 #d-coaster.out-r{animation:outR .18s ease-in forwards}
