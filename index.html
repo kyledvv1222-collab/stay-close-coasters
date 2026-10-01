@@ -382,8 +382,6 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .gate p{margin:0 0 32px;max-width:32em;font-size:22px;line-height:1.45;opacity:.88}
 .gate-actions{display:flex;flex-wrap:wrap;align-items:center;gap:28px}
 .gate-actions .btn{width:auto;padding:0 32px;font-size:20px;color:var(--plum)}
-.gate-skip{border:0;background:none;padding:6px 0;color:var(--white);opacity:.85;font:700 18px/1.2 var(--body);text-decoration:underline;text-underline-offset:4px}
-.gate-skip:hover{opacity:1}
 .gate-art{position:relative;width:440px;height:480px}
 .gate-art .coaster{position:absolute;width:300px;opacity:.9}
 .gate-art .g1{left:-30px;top:110px;transform:rotate(-12deg)}
@@ -597,7 +595,6 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
       <p>Scan the code with your phone’s camera to open the conversation-starter coasters. Then add it to your Home Screen for quick access.</p>
       <div class="gate-actions">
         <a class="btn btn-yellow" href="https://www.pflagnyc.org/stay-close/">Back to PFLAG NYC <svg class="i"><use href="#i-arrow"/></svg></a>
-        <button class="gate-skip" id="gate-skip">Continue on desktop anyway</button>
       </div>
     </div>
     <div class="gate-art" id="gate-art">
@@ -1038,10 +1035,8 @@ $("#how-decks").addEventListener("click", function(e){ var b = e.target.closest(
 (function(){
   var gate = $("#gate");
   var desktop = window.matchMedia && matchMedia("(hover: hover) and (pointer: fine) and (min-width: 900px)").matches;
-  var skipped = false; try { skipped = sessionStorage.getItem("sc-desktop-ok") === "1"; } catch(e) {}
   $("#gate-art").insertAdjacentHTML("afterbegin", coasterHTML(BY["lgbtq-1"], "g1") + coasterHTML(BY["loved-1"], "g2"));
-  if (desktop && !skipped) gate.hidden = false;
-  $("#gate-skip").addEventListener("click", function(){ gate.hidden = true; try { sessionStorage.setItem("sc-desktop-ok", "1"); } catch(e) {} });
+  if (desktop) gate.hidden = false;
 })();
 
 /* ---------- Start ---------- */
