@@ -439,7 +439,7 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
       <div class="dottex" aria-hidden="true"></div>
       <div class="wm"><svg viewBox="0 0 440 120" role="img" aria-label="Stay Close"><use href="#wordmark"/></svg></div>
       <div class="fan" id="fan" aria-hidden="true"></div>
-      <h1 class="w-h">Pull up a chair.<br>Pick a coaster.</h1>
+      <h1 class="w-h">Pick a question.<br>Put it all on the table.</h1>
       <p class="w-b">Some of the most important conversations are the ones we don’t know how to start. These questions can help bring us closer and make it easier to keep talking.</p>
       <div class="w-cta"><button class="btn btn-yellow" id="w-start">Pick a coaster <svg class="i"><use href="#i-arrow"/></svg></button></div>
       <button class="w-tip" data-a2hs><svg class="i"><use href="#i-share"/></svg>Tip: Add to your Home Screen for quick access</button>
@@ -447,14 +447,14 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 
     <!-- 2 Shuffle -->
     <section class="view" id="v-shuffle" aria-label="Shuffle">
-      <div class="sh-head"><p class="eyebrow">Tonight’s question</p><h1>Let’s chat!</h1></div>
+      <div class="sh-head"><p class="eyebrow">Stay Close</p><h1>Let’s chat!</h1></div>
       <div class="sh-spacer"></div>
       <div class="stack" id="stack">
         <div class="coaster back b1" id="b1" aria-hidden="true"></div>
         <div class="coaster back b2" id="b2" aria-hidden="true"></div>
         <button class="coaster front" id="front"></button>
       </div>
-      <button class="open-sm" id="open-btn">Open coaster</button>
+      <button class="open-sm" id="open-btn">View coaster</button>
       <div class="sh-spacer"></div>
       <div class="sh-actions">
         <button class="btn btn-yellow" id="shuffle-btn"><svg class="i"><use href="#i-shuffle"/></svg>Shuffle</button>
@@ -531,9 +531,9 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
         <div class="decks" id="how-decks"></div>
         <h2 class="h2">Tips for a good conversation</h2>
         <ol class="tips">
-          <li><span class="num">1</span>Pick a calm moment, like dinner, a drive, or a walk.</li>
-          <li><span class="num">2</span>Listen more than you talk. You don’t have to fix anything.</li>
-          <li><span class="num">3</span>It’s okay to pass, or come back to a question later.</li>
+          <li><span class="num">1</span>Find a moment to be together—over dinner, a walk, or wherever you feel comfortable.</li>
+          <li><span class="num">2</span>Give each other the space to ask, share, and listen.</li>
+          <li><span class="num">3</span>It’s okay to pass or come back to a question later.</li>
         </ol>
         <div class="support">
           <h3>Need more support?</h3>
@@ -634,7 +634,7 @@ var APP_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQ
   var pv = document.getElementById("icon-preview"); if (pv) pv.src = APP_ICON;
 })();
 var DECKS = {
-  shared:{name:"Shared", color:"#A48DC2", who:"Ask each other", desc:"Ask each other. Take turns answering.", banner:"Questions to ask each other. Take turns answering.", tip:"Take turns answering. Listen without fixing, and it’s always okay to pass."},
+  shared:{name:"Shared", color:"#A48DC2", who:"Ask each other", desc:"Ask each other. Take turns answering.", banner:"Questions to ask each other. Take turns answering.", tip:"Take turns answering. Give each other space to share and remember, it’s always okay to pass."},
   loved:{name:"Loved One", color:"#9CB1C4", who:"For loved ones to ask", desc:"For parents, family, and friends to ask.", banner:"Questions for a parent, family member, or friend to ask.", tip:"Ask out of curiosity, then really listen. Thank them for sharing, whatever the answer."},
   lgbtq:{name:"LGBTQ+", color:"#71BBB1", who:"For LGBTQ+ folks to ask", desc:"For LGBTQ+ folks to ask their loved ones.", banner:"Questions to ask a parent, family member, or loved one.", tip:"Ask what you really want to know. A first answer isn’t always the last one, and that’s okay."}
 };
@@ -800,7 +800,7 @@ function renderBacks(){
     used.push(c.id); setCoaster($(sel), c);
   });
 }
-function renderFront(){ setCoaster(front, cur); front.setAttribute("aria-label", "Open coaster: " + cur.q); renderBacks(); }
+function renderFront(){ setCoaster(front, cur); front.setAttribute("aria-label", "View coaster: " + cur.q); renderBacks(); }
 function renderFilter(){
   var on = DECK_KEYS.filter(function(k){ return S.decks[k]; }).length;
   var fc = $("#filter-count"); fc.hidden = on === DECK_KEYS.length; fc.textContent = on;
