@@ -125,12 +125,15 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 #w-start{color:var(--plum)}
 .w-tip{display:inline-flex;align-items:center;gap:8px;margin-top:14px;border:0;background:none;color:var(--white);font:400 14px/1.3 var(--body);opacity:.85}
 .w-tip svg{width:18px;height:18px}
+.w-how{display:block;margin:14px auto 0;padding:4px 8px;border:0;background:none;color:var(--white);font:700 15px/1.3 var(--body);text-decoration:underline;text-underline-offset:3px}
 
 /* ---------- Shuffle ---------- */
 #v-shuffle{color:var(--white);padding:0 16px 20px;overflow-x:hidden}
 .sh-head{text-align:center;padding-top:6px}
 .sh-head .eyebrow{color:var(--yellow)}
 .sh-head h1{margin:8px 0 0;font:400 32px/1.05 var(--display)}
+.sh-how{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:4px 8px;border:0;background:none;color:var(--white);font:700 14px/1.2 var(--body);opacity:.9}
+.sh-how svg{width:16px;height:16px}
 .stack{--cs:min(90vw,clamp(220px,calc(100vh - 360px),351px));position:relative;flex:none;height:var(--cs);display:grid;place-items:center;margin:0}
 .open-sm{align-self:center;margin-top:20px;padding:10px 18px;border:0;border-radius:99px;background:rgba(255,255,255,.12);color:var(--white);font:700 14px/1.2 var(--body);transition:background-color .2s,transform .15s}
 .open-sm:active{transform:scale(.95);background:rgba(255,255,255,.2)}
@@ -306,6 +309,11 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .drow .dt{flex:1;min-width:0}
 .drow > svg{width:20px;height:20px;color:var(--plum)}
 .h2{margin:28px 0 14px;font:700 20px/1.2 var(--body)}
+.btns{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.btns li{display:flex;align-items:center;gap:12px;font-size:16px;line-height:1.35}
+.btns b{display:block}
+.bico{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:var(--white)}
+.bico svg{width:22px;height:22px}
 .tips{list-style:none;margin:0;padding:0;display:grid;gap:14px}
 .tips li{display:flex;align-items:center;gap:12px;font-size:16px;line-height:1.35}
 .num{flex:none;width:32px;height:32px;border-radius:50%;background:var(--yellow);color:var(--plum);display:grid;place-items:center;font-weight:700}
@@ -455,13 +463,13 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
       <div class="fan" id="fan" aria-hidden="true"></div>
       <h1 class="w-h">Pick a question.<br>Put it all on the table.</h1>
       <p class="w-b">Some of the most important conversations are the ones we don’t know how to start. These questions can help bring us closer and make it easier to keep talking.</p>
-      <div class="w-cta"><button class="btn btn-yellow" id="w-start">Pick a coaster <svg class="i"><use href="#i-arrow"/></svg></button></div>
+      <div class="w-cta"><button class="btn btn-yellow" id="w-start">Pick a coaster <svg class="i"><use href="#i-arrow"/></svg></button><button class="w-how" data-how>New here? See how it works</button></div>
       <button class="w-tip" data-a2hs><svg class="i"><use href="#i-share"/></svg>Tip: Add to your Home Screen for quick access</button>
     </section>
 
     <!-- 2 Shuffle -->
     <section class="view" id="v-shuffle" aria-label="Shuffle">
-      <div class="sh-head"><p class="eyebrow">Stay Close</p><h1>Let’s chat!</h1></div>
+      <div class="sh-head"><p class="eyebrow">Stay Close</p><h1>Let’s chat!</h1><button class="sh-how" data-how><svg class="i"><use href="#i-info"/></svg>How it works</button></div>
       <div class="sh-spacer"></div>
       <div class="stack" id="stack">
         <div class="coaster back b1" id="b1" aria-hidden="true"></div>
@@ -543,16 +551,22 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
         <h1 class="title">How it works</h1>
         <p class="sub">Each coaster color tells you who asks.</p>
         <div class="decks" id="how-decks"></div>
-        <h2 class="h2">Tips for a good conversation</h2>
+        <h2 class="h2">What the buttons do</h2>
+        <ul class="btns">
+          <li><span class="bico"><svg class="i"><use href="#i-heart"/></svg></span><span><b>Save</b>Keep a coaster in Saved to come back to later.</span></li>
+          <li><span class="bico"><svg class="i"><use href="#i-chat"/></svg></span><span><b>Add a note</b>Write down a thought or something to remember. Notes stay on your phone.</span></li>
+          <li><span class="bico"><svg class="i"><use href="#i-check"/></svg></span><span><b>We talked about this</b>Check off questions you’ve already talked about to track your progress.</span></li>
+        </ul>
+        <h2 class="h2">Tips for a meaningful conversation</h2>
         <ol class="tips">
           <li><span class="num">1</span>Find a moment to be together—over dinner, a walk, or wherever you feel comfortable.</li>
           <li><span class="num">2</span>Give each other the space to ask, share, and listen.</li>
           <li><span class="num">3</span>It’s okay to pass or come back to a question later.</li>
         </ol>
         <div class="support">
-          <h3>Need more support?</h3>
+          <h3>Want more support?</h3>
           <p>PFLAG NYC support groups meet every month, in person and online.</p>
-          <a class="btn btn-yellow" href="https://www.pflagnyc.org" target="_blank" rel="noopener">Find a support group <svg class="i"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-yellow" href="https://www.pflagnyc.org/support-groups/" target="_blank" rel="noopener">Find a support group <svg class="i"><use href="#i-arrow"/></svg></a>
         </div>
       </div>
     </section>
@@ -572,9 +586,9 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
     <p class="small-label st" style="--i:5">Browse by deck</p>
     <div id="drawer-decks"></div>
     <div class="spacer"></div>
-    <a class="dsupport st" style="--i:9" href="https://www.pflagnyc.org" target="_blank" rel="noopener"><b>Need more support?</b><span>Find a support group <svg class="i"><use href="#i-arrow"/></svg></span></a>
+    <a class="dsupport st" style="--i:9" href="https://www.pflagnyc.org/support-groups/" target="_blank" rel="noopener"><b>Want more support?</b><span>Find a support group <svg class="i"><use href="#i-arrow"/></svg></span></a>
     <div class="dfoot st" style="--i:10">
-      <a href="https://www.pflagnyc.org" target="_blank" rel="noopener">About PFLAG NYC</a>
+      <a href="https://www.pflagnyc.org/about/" target="_blank" rel="noopener">About PFLAG NYC</a>
       <button data-a2hs>Add to Home Screen</button>
     </div>
   </aside>
@@ -649,7 +663,7 @@ var APP_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQ
 })();
 var DECKS = {
   shared:{name:"Shared", color:"#A48DC2", who:"Ask each other", desc:"Ask each other. Take turns answering.", banner:"Questions to ask each other. Take turns answering.", tip:"Take turns answering. Give each other space to share and remember, it’s always okay to pass."},
-  loved:{name:"Loved One", color:"#9CB1C4", who:"For loved ones to ask", desc:"For parents, family, and friends to ask.", banner:"Questions for a parent, family member, or friend to ask.", tip:"Ask out of curiosity, then really listen. Thank them for sharing, whatever the answer."},
+  loved:{name:"Loved One", color:"#9CB1C4", who:"For loved ones to ask", desc:"For parents, family, and friends to ask their LGBTQ+ loved ones.", banner:"Questions for a parent, family member, or friend to ask.", tip:"Ask out of curiosity, then really listen. Thank them for sharing, whatever the answer."},
   lgbtq:{name:"LGBTQ+", color:"#71BBB1", who:"For LGBTQ+ folks to ask", desc:"For LGBTQ+ folks to ask their loved ones.", banner:"Questions to ask a parent, family member, or loved one.", tip:"Ask what you really want to know. A first answer isn’t always the last one, and that’s okay."}
 };
 var DECK_KEYS = ["shared","loved","lgbtq"];
@@ -756,6 +770,7 @@ function closeMenu(silent){
 }
 menuBtn.addEventListener("click", function(){ app.classList.contains("menu-open") ? closeMenu() : openMenu(); });
 $("#scrim").addEventListener("click", function(){ if (app.classList.contains("sheet-open")) closeSheet(); else closeMenu(); });
+document.querySelectorAll("[data-how]").forEach(function(b){ b.addEventListener("click", function(){ go("howto"); }); });
 drawer.querySelectorAll("[data-go]").forEach(function(b){ b.addEventListener("click", function(){ if (b.dataset.go === "saved") setTab("saved"); go(b.dataset.go); }); });
 $("#drawer-decks").innerHTML = DECK_KEYS.map(function(d,i){ return '<button class="deckrow st" style="--i:'+(6+i)+';--c:'+DECKS[d].color+'" data-deck="'+d+'"><span class="dot"></span>'+esc(DECKS[d].name)+'<span class="n">'+RAW[d].length+'</span>'+icon("i-right")+'</button>'; }).join("");
 $("#drawer-decks").addEventListener("click", function(e){ var b = e.target.closest("[data-deck]"); if (b) exploreDeck(b.dataset.deck); });
@@ -1049,8 +1064,8 @@ function renderList(){
   list.hidden = !ids.length; empty.hidden = !!ids.length;
   if (!ids.length) {
     empty.innerHTML = tab === "saved"
-      ? '<div class="ei">'+icon("i-heart")+'</div><h3>Nothing saved yet</h3><p>Tap Save on any coaster to keep it here for later.</p><button class="btn btn-plum" data-empty="explore">Browse coasters</button>'
-      : '<div class="ei">'+icon("i-chat")+'</div><h3>No conversations yet</h3><p>After you talk about a coaster, tap “We talked about this” to track it here.</p><button class="btn btn-plum" data-empty="shuffle">Pick a coaster</button>';
+      ? '<div class="ei">'+icon("i-heart")+'</div><h3>Nothing saved yet</h3><p>Tap the heart on any coaster to save it here for later.</p><button class="btn btn-plum" data-empty="explore">Browse coasters</button>'
+      : '<div class="ei">'+icon("i-chat")+'</div><h3>No conversations yet</h3><p>After you talk about a coaster, tap the checkmark to track it here.</p><button class="btn btn-plum" data-empty="shuffle">Pick a coaster</button>';
   }
 }
 $("#sv-empty").addEventListener("click", function(e){ var b = e.target.closest("[data-empty]"); if (!b) return; if (b.dataset.empty === "explore") exploreDeck("all"); else go("shuffle"); });
